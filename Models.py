@@ -14,3 +14,29 @@ class Post(models.Model):
     title = models.CharField (max_length = 64)
     text = model.TextField ()
     rating = models.IntegerField()   
+
+class Category(models.Model):
+    breaking = 'BR'
+    weather = 'WE'
+    social = 'SO'
+    business = 'BU'
+    other = 'OT'
+    
+    TYPES = [
+        (breaking, 'Срочное'),
+        (weather, 'Погода'),
+        (social, 'Общество'),
+        (business, 'Бизнес'),
+        (other, 'Другое')
+    ]
+    
+    cat_name = models.CharField(choices=TYPES, default = other, unique = True)
+    
+class PostCategory (models.Model):
+    PostCat_id = models.ForeignKey(Post, on_delete = models.CASCADE)
+    PostCat_id = models.ForeignKey(Category, on_delete = models.CASCADE)
+    
+class Comment (models.Model):
+    Comm_id = models.ForeignKey(Post, on_delete = models.CASCADE)
+    Comm_id = models.ForeignKey(User, on_delete = models.SET_DEFAULT, default = 'удаленный пользователь')
+    
