@@ -1,14 +1,11 @@
 # Создать двух пользователей (с помощью метода User.objects.create_user).
 from django.contrib.auth.models import User
->>> user1 = User.objects.create_user("Bonny", "bonny@gmail.com", "bonnypassword")
->>> user1.save()
-
->>> user2 = User.objects.create_user("Clide", "clide@gmail.com", "clidepassword")
->>> user2.save()
+>>> User.objects.create_user("Bonny", "bonny@gmail.com", "bonnypassword")
+>>> User.objects.create_user("Clide", "clide@gmail.com", "clidepassword")
 
 # Создать два объекта модели Author, связанные с пользователями.
->>> Author.object.create (user = user1)
->>> Author.object.create (user = user2)
+>>> Author.object.create (user="Bonny")
+>>> Author.object.create (user="Clide")
 
 # Добавить 4 категории в модель Category.
 # Я применил ограниченный список в модели Category, если бы создавал объекты, то делал бы это так:
@@ -31,9 +28,21 @@ from django.contrib.auth.models import User
 
 # Применяя функции like() и dislike() к статьям/новостям и комментариям, скорректировать рейтинги этих объектов.
 # Обновить рейтинги пользователей.
-
-
+>>> like(Comment.id[1])
+>>> dislike(Comment.id[2])
+>>> like(Post.id[0])
+>>> dislike(Post.id[1])
+>>> like(Post.id[2])
+>>> like(Post.id[2])
+>>> update_rating ()
 
 # Вывести username и рейтинг лучшего пользователя (применяя сортировку и возвращая поля первого объекта).
+>>> leader_auth = Author.objects.order_by("rating")
+>>> print (leader_auth[0](user, rating))
+
 # Вывести дату добавления, username автора, рейтинг, заголовок и превью лучшей статьи, основываясь на лайках/дислайках к этой статье.
 # Вывести все комментарии (дата, пользователь, рейтинг, текст) к этой статье.
+>>> leader_post = Post.objects.order_by("rating")
+>>> print (leader_post[0](date_of_publ, Author.user, rating, title) + preview(leader_post[0]))
+>>> all_comments = Comments.objects_set.all(leader_post[0])
+>>> print (all_comments)
