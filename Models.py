@@ -5,11 +5,12 @@ class Author(models.Model):
     rating = models.IntegerField(default = 0)
     
     def update_rating(self):
-        rating_post_author = 
-        rating_comm_author = 
-        rating_comm_post_author = 
+        rating_post_author = self.Post_set.all().aggregate(Sum('rating'))
+        rating_comm_author = self.Comment_set.all().aggregate(Sum('rating'))
+        rating_comm_post_author = self.Post_set.Comment_set.all().aggregate(Sum('rating'))
         
         self.rating = (rating_post_author *3 + rating_comm_author + rating_comm_post_author)
+        self.save()
 
 class Post(models.Model):
     post = models.OneToOneField (Author, on_delete = models.CASCADE, primary_key = True)
