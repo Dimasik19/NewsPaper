@@ -30,7 +30,7 @@ class Post(models.Model):
         self.rating -=1
         self.save()
         
-    def showpreview(self):
+    def preview(self):
         return self.text([0:124] + '...'])
 
 class Category(models.Model):
