@@ -40,3 +40,6 @@ class Comment (models.Model):
     Comm_id = models.ForeignKey(Post, on_delete = models.CASCADE)
     Comm_id = models.ForeignKey(User, on_delete = models.SET_DEFAULT, default = 'удаленный пользователь')
     
+    text = model.TextField ()
+    date_of_publ = model.DateTimeField (auto_now_add = True)
+    rating = models.IntegerField()
